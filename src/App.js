@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+import Todo from "./components/Todo";
+import AddTodoForm from "./components/AddTodoForm";
+import emptyList from "./assets/emptyList.gif"
 
 function App() {
+  const [yapilacaklar, setYapilacaklar] = useState([])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="comtainer">
+      <h1 className="my-5 text-center">ToDo App-1</h1>
+      <AddTodoForm
+        yapilacaklar={yapilacaklar}
+        setYapilacaklar={setYapilacaklar}
+      />
+      {yapilacaklar.length === 0 ? (
+        <div className="d-flex flex-column align-items-center">
+          <img src={emptyList} />
+          <p className="text-center"> You Have Nothing Todo</p>
+        </div>
+      ) : (
+        <div className="container my-5">
+          {yapilacaklar.map((item, index) => (
+            <Todo 
+            key={item.id} 
+            item={item} 
+            yapilacaklar={yapilacaklar} 
+            setYapilacaklar={setYapilacaklar} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
